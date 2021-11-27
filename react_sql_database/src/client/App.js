@@ -1,14 +1,37 @@
-  import react, { useState } from 'react'
+  import axios from 'axios';
+import react, { useState } from 'react'
 
   
   
 function App() {
-
+  const [text,settext] = useState('')
   const [member,nowmember] = useState('김아무개')
   const [money,loadmoney] = useState(10000)
 
 
+  function onchange (e) {
+    settext(e.target.value)
+  }
+
+  function changename(name){
+    console.log(text)
+    axios.get('http://localhost:3001/name',
+    {
+      body: text
+    },
+    {
+      headers:{
+
+      credentials:true,
+      accept: 'application/json'
+      
+      }
+    })
+  .then(res => console.log(res))
   
+}
+
+
 
 
   return (
@@ -17,8 +40,8 @@ function App() {
           안녕하세요. 회원 ID를 입력해주세요
           <div class="input">
             <br/>
-            <input></input>
-            <button>입력</button>
+            <input type='text' onChange={onchange} ></input>
+            <button onClick={(name)=>changename(name)}>입력</button>
           </div>
           <div>
             <br/>

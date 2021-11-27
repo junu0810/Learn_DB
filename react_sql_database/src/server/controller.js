@@ -12,8 +12,23 @@ module.exports = {
                 return res.status(200).json(result)
             }
         }
-            module.name.get(username, send_name(err,result))
+            model.name.get(username, send_name(err,result))
 
+        }
+    },
+
+    money: {
+        get: (req,res)=>{
+            const money = req.body
+        function send_money(err,result){
+            if(err){
+                return res.status(500).send('Not serch member');
+            }
+            else{
+                return res.status(200).json(result)
+            }
+        }
+            model.money.get(username, send_money(err,result))
         }
     }
 }
