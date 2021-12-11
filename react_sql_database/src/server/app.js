@@ -1,5 +1,5 @@
 const express = require('express');
-const indexRouter = require('./server/routers/index')
+const indexRouter = require('./routers/index')
 const port = 5000;
 const cors = require('cors')
 
