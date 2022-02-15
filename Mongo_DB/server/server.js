@@ -20,32 +20,18 @@ app.use(
 
 let db;
 Mongo.connect(`mongodb+srv://Baek:${process.env.DB_PASSWORD}@cluster0.jolds.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, (err, client) => {
-
   if (err) {
     console.log('서버연결에 실패했습니다.')
     console.log(err)
   }
   else {
     db = client.db('learn_database')
-  }
-  // else{
-  //   //learn_database에 연결할 예정 
-  //   db = client.db('learn_database')
-
-  //   db.collection('post').insertOne({type:'testData' , id:1} ,(err, result) => {
-  //     console.log('저장이 완료되었습니다.')
-  //   })
-
-  //   //connect완료시 작성
-  //   
+  } 
 })
 
-// app.get('/', (req, res) => {
-//   res.status(200).send('서버 개발 완료')
-// })
-
-app.get('/post', (req, res) => {
- const result = db.collection('post').insertOne({ type: Date(), id: 1 }, (err, result) => {
+app.post('/post', (req, res) => {
+ console.log(req.body)
+ const result = db.collection('post').insertOne({ type: Date(), _id: req.body.id }, (err, result) => {
     if(err){
       return res.status(400).send(err)
     }
@@ -55,6 +41,19 @@ app.get('/post', (req, res) => {
   })
   return result
 })
+
+app.get('/get',(req,res) => {
+  // const result;
+
+  console.log(db.collection('post').find())
+
+
+  return res.status(200).json({})
+})
+
+
+
+
 
 app.listen(PORT, () => {
       console.log(`listening on port ${PORT}`)
