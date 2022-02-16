@@ -29,26 +29,35 @@ Mongo.connect(`mongodb+srv://Baek:${process.env.DB_PASSWORD}@cluster0.jolds.mong
   } 
 })
 
+app.post('/update', async (req,res) => {
+  const result = await db.collection('post').updateOne({_id:req.body.id},{$set: {type:Date()}})
+  if(result.matchedCount !== 0){
+    return res.status(200).json({message:'update complete'})
+  }
+  else{
+    return res.status(400).json({message:'update fail'})
+  }
+})
+
 app.post('/post', (req, res) => {
- console.log(req.body)
- const result = db.collection('post').insertOne({ type: Date(), _id: req.body.id }, (err, result) => {
+ db.collection('post').insertOne({ type: Date(), _id: req.body.id }, (err, result) => {
     if(err){
       return res.status(400).send(err)
     }
     else{
+      db.collection('counter').updateOne({_id:'counting'},{$inc: {count:1}})
       return res.status(200).send(Date())
     }
   })
-  return result
 })
 
-app.get('/get',(req,res) => {
+app.get('/get', async (req,res) => {
   // const result;
 
-  console.log(db.collection('post').find())
+  const result = await db.collection('post').findOne({_id:'baek'})
+  console.log(result)
 
-
-  return res.status(200).json({})
+  return res.status(200).json(result)
 })
 
 
