@@ -60,7 +60,17 @@ app.get('/get', async (req,res) => {
   return res.status(200).json(result)
 })
 
-
+app.delete('/delete', async (req,res) => {
+  const _id = req.body.id
+  await db.collection('post').deleteOne({_id},(err,result) => {
+    if(result){
+      return res.status(200).json({message:'success'})
+    }
+    else{
+      return res.status(400).json({message:'fail'})
+    }
+  })
+})
 
 
 

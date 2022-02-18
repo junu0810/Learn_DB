@@ -25,6 +25,12 @@ const [date, setDate] = useState()
     })
   }
 
+  const deletetime = () => {
+    axios.delete('http://localhost:4000/delete',{
+      id: 'joon'
+    })
+  }
+
   return (
   <div>
     <button onClick={timesubmit}>
@@ -35,6 +41,9 @@ const [date, setDate] = useState()
     </button>
     <button onClick={updatetime}>
       날짜업데이트하기
+    </button>
+    <button onClick={deletetime}>
+      날짜 삭제하기
     </button>
     <div>
       {date ? date : '날짜를 가져오세요'}
