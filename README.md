@@ -5,9 +5,8 @@
 현재 진행정도 
 - sequelize 
 - MongoDB
+- GraphQL
 
 차후 계획 
-- GraphQL
 - MariaDB
-- Redies
 - redis
