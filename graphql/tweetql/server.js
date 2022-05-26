@@ -49,6 +49,27 @@ const typeDefs = gql`
     tweet(id: ID!): Tweet
     movie(id: String!): Movie
     ping : String!
+    test : Test!
+  }
+  type company {
+    com_uid: String,
+    com_name: String,
+    com_licence_no: String,
+    com_address: String,
+    com_contact_no: String,
+    com_email: String,
+    com_description: String,
+    com_joindate: String,
+    com_account_no: String,
+    bank_name: String
+  }
+  type bank {
+    String : String
+  }
+  type Test {
+    companyallcount: String,
+    company_list: [company ],
+    bank_list: [bank]
   }
   type Mutation {
     postTweet(text: String, userId: ID): Tweet
@@ -78,7 +99,7 @@ const typeDefs = gql`
     large_cover_image: String!
   }
 `;
-
+ 
 const resolvers = {
   Query: {
     //argumen로 받는값에 따라 데이터를 보내준다.
@@ -103,9 +124,24 @@ const resolvers = {
     },
     movie(_, { id }) {
       return fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${id}`)
-        .then((r) => r.json())
+        .then((r) => {
+          console.log(r)
+          r.json()
+        })
         .then((json) => json.data.movie);
     },
+    test(){
+      return fetch("http://127.0.0.1:8000/company/")
+      .then((r) => {
+       return r.json()
+      })
+      .then((json) => {
+        // console.log(json.data)
+        console.log(json)
+        return json}
+        );
+      }
+
   },
   Mutation: {
     postTweet(__, {text, userId}){
