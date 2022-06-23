@@ -1,12 +1,12 @@
 import React from 'react';
-
+import Profile from './profile';
 
 
 function App() {
   return (
     <div>
       <div>
-      테스트 페이지
+      < Profile />
       </div>
     </div>
   );
