@@ -31,16 +31,16 @@ let users = [
 ]
 
 const typeDefs = gql`
+  type Tweet {
+    id: ID!
+    text: String!
+    author: User
+  }
   type User {
     id: ID!
     firstname: String!
     lastname: String!
-    fullName: String!
-  }
-  type Tweet {
-    id: ID!
-    text: String!
-    author: User!
+    fullName: String
   }
   type Query {
     allMovies: [Movie!]!
@@ -72,7 +72,7 @@ const typeDefs = gql`
     bank_list: [bank]
   }
   type Mutation {
-    postTweet(text: String, userId: ID): Tweet
+    postTweet(text: String! , userId: ID!): Tweet!
     deleteTweet(id: ID!): Boolean!
   }
   type Movie {
@@ -144,13 +144,14 @@ const resolvers = {
 
   },
   Mutation: {
-    postTweet(__, {text, userId}){
+    postTweet(_, { text, userId }) {
       const newTweet = {
         id: tweets.length + 1,
         text,
-      }
-      tweets.push(newTweet)
-      return newTweet
+        userId,
+      };
+      tweets.push(newTweet);
+      return newTweet;
     },
     deleteTweet(__, args){
       const tweet = tweets.find(tweet => tweet.id == args.id)
