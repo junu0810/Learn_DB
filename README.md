@@ -8,5 +8,4 @@
 - GraphQL
 
 차후 계획 
-- MariaDB
 - redis
